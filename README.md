@@ -10,10 +10,28 @@ Welcome to PlanIt, the ultimate solution for hassle-free barber appointments. Wi
 
 * [Description](#Description)
 * [Table of Contents](#table-of-contents)
+* [Installation](#installation)
 * [Usage](#Usage)
 * [License](#License)
 * [Contribution Guidelines](#contribution-guidelines)
 * [Test Instructions](#test-instructions)
+
+## Installation
+
+To install and test the application perform the following steps:
+
+```Bash
+git clone git@github.com:hfelix3/PlanIt.git
+
+cd PlanIt
+
+npm install 
+
+npm start
+
+```
+
+In your brower, navigate to http://localhost:3001/
 
 
 ## Usage
@@ -38,14 +56,18 @@ This project is covered under the MIT license.
 
 ## Contribution Guidelines
 
+To contibute to the project, fork the repository and add your changes. 
 
+When your changes are ready to be incorporated, create a pull request into the main branch of the source repository.
+
+Your changes will be review and approve is appropriate. 
 
 ## Test Instructions
 
 
 
-## Questions?
+## Questions or Feedback
 
-Github Profile: <https://github.com/>
+Github Profile: <https://github.com/hfelix3/PlanIt>
 
-Email me at <> if you have any questions.
+Email us at <> if you have any questions.
