@@ -11,26 +11,25 @@ const sequelize = process.env.JAWSDB_URL
       dialect: 'mysql',
       // TODO: add [socketPath: 'tmp/mysql.sock',] for mac users
       dialectOptions: {
-        socketPath: 'tmp/mysql.sock',
         decimalNumbers: true,
       },
     });
 
 // C.R.U.D. OPERATIONS
     // Create 
-User.create({
-  username: '',
-  email: ''  
-});
+// User.create({
+//   username: '',
+//   email: ''  
+// });
 
-// Read
-User.findAll(); 
+// // Read
+// User.findAll(); 
 
-// Update
-User.update({ email: '' }, { where: { id: 1 }});
+// // Update
+// User.update({ email: '' }, { where: { id: 1 }});
 
-// Delete
-User.destroy({ where: { id: 1 }});
+// // Delete
+// User.destroy({ where: { id: 1 }});
 
 
 module.exports = sequelize;
