@@ -1,19 +1,24 @@
-const sequelize = require('sequelize');
+const Sequelize = require('sequelize');
 require('dotenv').config();
 
+let sequelize; 
 
-
-// DEFINING MODEL
-const Sequelize = process.env.JAWSDB_URL
-  ? new Sequelize(process.env.JAWSDB_URL)
-  : new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-      host: '127.0.0.1',
+if (process.env.JAWSDB_URL) {
+  sequelize = new Sequelize(process.env.JAWSDB_URL, {
+    dialect: 'mysql',
+    logging: false
+  });
+} else {
+  sequelize = new Sequelize(
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
+    {
+      host: 'localhost',
       dialect: 'mysql',
-      // TODO: add [socketPath: 'tmp/mysql.sock',] for mac users
-      dialectOptions: {
-        socketPath: 'tmp/mysql.sock',
-        decimalNumbers: true,
-      },
-    });
+      port: 3306
+    }
+  );
+}
 
 module.exports = sequelize;
