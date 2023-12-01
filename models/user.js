@@ -1,8 +1,4 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../server.js');
-
-// to initiate sequelize
-const sequelize = new sequelize();
+const Sequelize = require('../config/connection');
 
 const user = sequelize.define('user', {
     // attribute columns
@@ -18,20 +14,4 @@ const user = sequelize.define('user', {
     
 });
 
-// C.R.U.D. OPERATIONS
-    // Create 
-    user.create({
-        username: '',
-        email: ''  
-      });
-      
-      // Read
-      user.findAll(); 
-      
-      // Update
-      user.update({ email: '' }, { where: { id: 1 }});
-      
-      // Delete
-      user.destroy({ where: { id: 1 }});
-
-      module.exports = user;
+module.exports = user;
