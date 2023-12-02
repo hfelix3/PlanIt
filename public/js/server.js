@@ -79,11 +79,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function saveAppointment() {
         const customerName = $('#customerName').val();
         const appointmentTime = selectedTime;
-    
-        if (customerName && appointmentTime) {
 
-            const startDateTime = moment(`${selectedDate} ${appointmentTime}`, 'YYYY-MM-DD HH:mm');
-            
+        if (customerName && appointmentTime) {
+            // Convert appointmentTime to 24 hour format
+            const formattedTime = moment(appointmentTime, 'hh:mm A').format('HH:mm');
+            const startDateTime = moment(`${selectedDate} ${formattedTime}`, 'YYYY-MM-DD HH:mm');
+
             // Add calendar event
             calendar.addEvent({
                 title: customerName,
@@ -91,13 +92,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 end: startDateTime.clone().add(1, 'hour').toISOString(),
                 allDay: false
             });
-            
+
             // Close the modal
             $('#eventModal').modal('hide');
         } else {
             alert('Please fill in all fields.');
         }
-    
+
         // TODO: Add APIs to save to database
     }
    
