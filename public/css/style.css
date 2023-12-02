@@ -142,11 +142,9 @@ transition: transform 0.2s ease-in-out;
     display: none;
 }
 
-
-
-body{
+/* body{
     height: 1000vh;
-}
+} */
 
 .container{
     width: 100%;
