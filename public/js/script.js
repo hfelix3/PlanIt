@@ -11,8 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Display the modal with available times
             showAvailableTimesModal(info);
         },
-        events: [
-        ],
+        events: [],
         eventClick: function(info) {
             info.event.title = document.getElementById('customerName');
             showAvailableTimesModal(info);
@@ -104,4 +103,26 @@ document.addEventListener('DOMContentLoaded', function () {
    
     
     // TODO: Create function to get stored appointments from database
+
+    fetch('/api/appointments', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Success in getting appointments:', data);
+            data.forEach((appointment) => {
+                calendar.addEvent({
+                    title: appointment.user.name,
+                    start: appointment.dateTime,
+                    end: moment(appointment.dateTime).add(1, 'hour').toISOString(),
+                    allDay: false
+                });
+            });
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 });

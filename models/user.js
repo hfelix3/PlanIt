@@ -1,23 +1,48 @@
-const sequelize = require('../config/connection');
 
-const user = sequelize.define('user', {
-    // attribute columns
-    name: {
-        type: sequelize.STRING
+const sequelize = require('../config/connection');
+const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
+const { User } = require('.');
+
+const user = sequelize.define('user', 
+    {
+        // attribute columns
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        name: {
+            type: DataTypes.STRING
+        },
+        phoneNumber: {
+            type: DataTypes.STRING
+        },
+        username: {
+            type: DataTypes.STRING
+        },
+        email: {
+            type: DataTypes.STRING
+        },
+        password: {
+            type: DataTypes. STRING
+        },
     },
-    phoneNumber: {
-        type: sequelize.INTEGER
-    },
-    username: {
-        type: sequelize.STRING
-    },
-    email: {
-        type: sequelize.STRING
-    },
-    password: {
-        type: sequelize. STRING
-    },
-    
-});
+    {
+        hooks: {
+            beforeCreate: async (newUserData) => {
+              newUserData.password = await bcrypt.hash(newUserData.password, 10);
+              return newUserData;
+            },
+            beforeUpdate: async (updatedUserData) => {
+              updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+              return updatedUserData;
+            },
+          },
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'user'
+    }
+);
 
 module.exports = user;

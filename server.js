@@ -3,8 +3,7 @@ const express = require('express');
 const routes = require('./controllers');
 const sequelize = require ('./config/connection');
 const exphbs = require('express-handlebars');
-//const user = require('./models/user.js');
-
+const seedDatabase = require('./seeds/seed');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,10 +20,12 @@ app.set('view engine', 'handlebars');
 
 app.use(routes);
 
-sequelize.sync().then(() => {
-
+sequelize.sync({ force: true}).then(() => {
     app.listen(PORT, () => {
         console.log(`App listening on port ${PORT}!`);
     });
+    
+    // seed the database upon server start
+    seedDatabase();
 
 });
