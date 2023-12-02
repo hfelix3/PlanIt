@@ -1,37 +1,23 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../server.js');
-
-// to initiate sequelize
-const sequelize = new sequelize();
+const sequelize = require('../config/connection');
 
 const user = sequelize.define('user', {
     // attribute columns
     name: {
         type: sequelize.STRING
     },
+    phoneNumber: {
+        type: sequelize.INTEGER
+    },
+    username: {
+        type: sequelize.STRING
+    },
     email: {
         type: sequelize.STRING
     },
-    phoneNumber: {
-        type: sequelize.INTEGER
+    password: {
+        type: sequelize. STRING
     },
     
 });
 
-// C.R.U.D. OPERATIONS
-    // Create 
-    user.create({
-        username: '',
-        email: ''  
-      });
-      
-      // Read
-      user.findAll(); 
-      
-      // Update
-      user.update({ email: '' }, { where: { id: 1 }});
-      
-      // Delete
-      user.destroy({ where: { id: 1 }});
-
-      module.exports = user;
+module.exports = user;
