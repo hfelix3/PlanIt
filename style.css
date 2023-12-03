@@ -153,11 +153,19 @@ body{
     height: 500px;
     background-position: center;
     background-size: cover;
-    background-image: url(Images/photo-1599351431202-1e0f0137899a.avif);
+    background-image: url(../Images/photo-1599351431202-1e0f0137899a.avif);
     background-attachment: fixed;
 
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+.calendar-container {
+    color: brown;
+    padding: 20px;
+    width: 90%;
+    margin: 0 auto;
 }

@@ -1,17 +1,20 @@
 // TODO: Have both GET and POST routes for retrieving and adding new data FOR user accounts.
 const router = require('express').Router();
-const user = require('../models/user-routers');
+const User = require('../../models/user');
+const Appointment = require('../../models/appointments');
 
 router.get('/', async (req, res) => {
-    //store userData in variable
-    const userData = await user.findAll();
-    // returns userData as JSON
-    return res.json(userData);
+    try {
+      const userData = await User.findAll();
+      res.json(userData);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+
 });
 
 router.post('/', async (req, res) => {
     const userData = await user.create(req.body);
-    
     return res.json(userData);
 });
 
