@@ -2,6 +2,7 @@ const sequelize = require('../config/connection');
 
 const user = require('../models/user');
 const appointment = require('../models/appointments');
+const employee = require('../models/employee');
 
 const seedDatabase = async () => {
     await sequelize.sync({ force: true });
@@ -28,11 +29,29 @@ const seedDatabase = async () => {
 
     for (const user of users) {
         await appointment.create({
-            barber: 'John',
+            barber_id: Math.floor(Math.random() * 3) + 1,
             dateTime: getRandomDate(),
             customer_id: user.id,
         });
     };
+
+    const employees = await employee.bulkCreate([
+        {
+            name: 'Jack',
+            phoneNumber: '555-5555',
+        },
+        {
+            name: 'Jill',
+            phoneNumber: '555-555-5555',
+        },
+        {
+            name: 'Frank',
+            phoneNumber: '555-555-5555',
+        }
+    ], {
+        individualHooks: true,
+        returning: true,
+    });
 };
 
 function getRandomDate() {

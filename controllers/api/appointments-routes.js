@@ -6,16 +6,19 @@ const User = require('../../models/user.js');
 router.get('/', async (req, res) => {
   try {
     const appointmentData = await appointment.findAll({ include: [{ model: User }] });
-    res.json(appointmentData);
+    res.status(200).json(appointmentData);
   } catch (error) {
     console.error('Error fetching appointments:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-
 router.post('/', async (req, res) => {
-    const appointmentData = await appointment.create(req.body);
+    const appointmentData = await appointment.create({
+      customer_id: req.body.customer_id,
+      barber_id: req.body.barber_id,
+      dateTime: req.body.dateTime
+      });
     
     return res.json(appointmentData);
 });
