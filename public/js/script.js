@@ -14,6 +14,13 @@ document.addEventListener('DOMContentLoaded', function () {
         events: [],
         eventClick: function(info) {
             info.event.title = document.getElementById('customerName');
+            //TODO:
+            // Display the modal with available times if logged in
+            // if (loggedIn) {
+                // showAvailableTimesModal(info);
+            //}
+            // else {
+                // alert('Please log in to schedule an appointment.');
             showAvailableTimesModal(info);
         }
     });
@@ -24,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var selectedTime = '';
     var selectedDate = '';
 
-    function showAvailableTimesModal(info) {
+    async function showAvailableTimesModal(info) {
 
         // Capture the date selected
         selectedDate = info.startStr;
@@ -78,6 +85,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function saveAppointment() {
         const customerName = $('#customerName').val();
         const appointmentTime = selectedTime;
+        
+        let barberId = document.getElementById('selectBarberList').value;
 
         if (customerName && appointmentTime) {
             // Convert appointmentTime to 24 hour format
@@ -92,18 +101,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 allDay: false
             });
 
+            // store in the database.
+            fetch('/api/appointments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    dateTime: startDateTime.toISOString(),
+                    barber_id: barberId,
+                    customer_id: 1 // TODO: figure out how to get this from session storage when implemented.
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Success in adding appointment:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+
             // Close the modal
             $('#eventModal').modal('hide');
         } else {
             alert('Please fill in all fields.');
         }
-
-        // TODO: Add APIs to save to database
-    }
+    };
    
-    
-    // TODO: Create function to get stored appointments from database
-
+    // fetch all appointments in database and add to calendar
     fetch('/api/appointments', {
         method: 'GET',
         headers: {
@@ -121,6 +146,28 @@ document.addEventListener('DOMContentLoaded', function () {
                     allDay: false
                 });
             });
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
+    // fetch all employees in database and add to barber list
+    fetch('/api/employees', { 
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            let barberListEl = document.getElementById('selectBarberList');
+
+            data.forEach((employee) => {
+                let option = document.createElement('option');
+                option.value = employee.id;
+                option.text = employee.name;
+                barberListEl.add(option);
+            }); 
         })
         .catch((error) => {
             console.error('Error:', error);

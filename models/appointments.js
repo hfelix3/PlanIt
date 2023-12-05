@@ -21,7 +21,7 @@ Appointment.init(
                 key: 'id'
             }
           },
-        barber: {
+        barber_id: {
             type: DataTypes.STRING
         },
         dateTime: {
