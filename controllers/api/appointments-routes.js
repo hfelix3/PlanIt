@@ -24,23 +24,14 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    const appointmentData = await appointment.update(
-      {
-        name: req.body.name,
-        phoneNumber: req.body.phoneNumber,
-        barber: req.body.barber,
-        date: req.body.date,
-        time: req.body.time,
-      },
-      {
-        where: {
-          id: req.params.id,
-        },
-      }
-    );
-  
-    return res.json(appointmentData);
+  const appointmentData = await appointment.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
   });
+
+  return res.json(appointmentData);
+});
   
 router.delete('/:id', async (req, res) => {
   const appointmentData = await appointment.destroy({
