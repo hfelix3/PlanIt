@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         console.log(info.extendedProps)
         // set the barber name in the select list
+
         fetch(`/api/employees/${info.extendedProps.barber_id}`, {
             method: 'GET',
             headers: {
@@ -101,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // If Update Appointment button is clicked, update the appointment via PUT request
     $('#updateEvent').on('click', function () {
-        
         // Convert appointmentTime to 24 hour format
         let formattedTime = moment(selectedTime, 'hh:mm A').format('HH:mm');
         let startDateTime = moment(`${selectedDate} ${formattedTime}`, 'YYYY-MM-DD HH:mm').toISOString();
@@ -121,8 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((data) => {
                 // close model
                 $('#eventModal').modal('hide');
-                // refresh page
-                location.reload();
+                document.location.reload();
 
             })
             .catch((error) => {
@@ -132,13 +131,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function showAvailableTimesModal(info) {
+
         // show saveEvent button
         $('#saveEvent').show();
         // hide updateEvent button
         $('#updateEvent').hide();
+
         // Capture the date selected
         selectedDate = info.startStr;
         $('#eventModal').modal('show');
+
     }
 
     $('#saveEvent').on('click', function () {
@@ -189,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Close the modal
             $('#eventModal').modal('hide');
+
         } else {
             alert('Please fill in all fields.');
         }
