@@ -3,7 +3,12 @@ const sequelize = require('../config/connection');
 const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 
-const user = sequelize.define('user', 
+class User extends Model {
+    checkPassword(loginPw) {
+        return bcrypt.compareSync(loginPw, this.password);
+    }
+}
+    User.init(
     {
         // attribute columns
         id: {
@@ -38,10 +43,12 @@ const user = sequelize.define('user',
               return updatedUserData;
             },
           },
+        sequelize,
+        timestamps: false,
         freezeTableName: true,
         underscored: true,
         modelName: 'user'
     }
 );
 
-module.exports = user;
+module.exports = User;

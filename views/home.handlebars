@@ -14,17 +14,16 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label for="customerName">Customer Name:</label>
-                        <input type="text" class="form-control" id="customerName">
-                    </div>
+                    {{!-- <div class="form-group">
+                        <label for="customerEmail">Customer Email:</label>
+                        <input type="text" class="form-control" id="customerEmail">
+                    </div> --}}
                     <div class="row">
                         <div class="col-md-6">
-                        <h3>Select a Barber:</h3>
+                        <h4 class="text-brown">Select a Barber:</h4>
                         <select class="form-control" id="selectBarberList"></select>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="appointmentTime">Select an Available Time:</label>
                         <div class="btn-group" id="availableTimes" role="group"></div>
@@ -33,6 +32,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="saveEvent">Book Appointment</button>
+                <button type="button" class="btn btn-primary" id="updateEvent">Update Appointment</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>

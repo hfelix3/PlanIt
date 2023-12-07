@@ -14,33 +14,42 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+
+    if (!req.session.loggedIn) {
+      res.status(401).json({ error: 'You must be logged in to create an appointment' });
+      return;
+    }
+
     const appointmentData = await appointment.create({
-      customer_id: req.body.customer_id,
+      customer_id: req.session.userId,
       barber_id: req.body.barber_id,
       dateTime: req.body.dateTime
       });
     
-    return res.json(appointmentData);
+    
+    const data = await appointment.findByPk(appointmentData.id, { include: [{ model: User }] });
+    return res.json(data);
 });
 
 router.put('/:id', async (req, res) => {
-    const appointmentData = await appointment.update(
-      {
-        name: req.body.name,
-        phoneNumber: req.body.phoneNumber,
-        barber: req.body.barber,
-        date: req.body.date,
-        time: req.body.time,
-      },
-      {
-        where: {
-          id: req.params.id,
-        },
-      }
-    );
-  
-    return res.json(appointmentData);
+  if (!req.session.loggedIn) {
+    res.status(401).json({ error: 'You must be logged in to update an appointment' });
+    return;
+  }
+  console.log(req.session);
+
+  const appointmentData = await appointment.update({
+    customer_id: req.session.userId,
+    barber_id: req.body.barber_id,
+    dateTime: req.body.dateTime
+  }, {
+    where: {
+      id: req.params.id,
+    },
   });
+
+  return res.json(appointmentData);
+});
   
 router.delete('/:id', async (req, res) => {
   const appointmentData = await appointment.destroy({

@@ -22,6 +22,76 @@ const seedDatabase = async () => {
             email: 'jdoe@gmail.com',
             password: 'password123'
         },
+        {
+            name: 'Alex Johnson',
+            phoneNumber: '555-555-5555',
+            username: 'ajohnson',
+            email: 'ajohnson@gmail.com',
+            password: 'password123'
+        },
+        {
+            name: 'Emily Wilson',
+            phoneNumber: '555-555-5555',
+            username: 'ewilson',
+            email: 'ewilson@gmail.com',
+            password: 'password123'
+        },
+        {
+            name: 'Michael Brown',
+            phoneNumber: '555-555-5555',
+            username: 'mbrown',
+            email: 'mbrown@gmail.com',
+            password: 'password123'
+        },
+        {
+            name: 'Olivia Davis',
+            phoneNumber: '555-555-5555',
+            username: 'odavis',
+            email: 'odavis@gmail.com',
+            password: 'password123'
+        },
+        {
+            name: 'William Martinez',
+            phoneNumber: '555-555-5555',
+            username: 'wmartinez',
+            email: 'wmartinez@gmail.com',
+            password: 'password123'
+        },
+        {
+            name: 'Sophia Anderson',
+            phoneNumber: '555-555-5555',
+            username: 'sanderson',
+            email: 'sanderson@gmail.com',
+            password: 'password123'
+        },
+        {
+            name: 'James Thompson',
+            phoneNumber: '555-555-5555',
+            username: 'jthompson',
+            email: 'jthompson@gmail.com',
+            password: 'password123'
+        },
+        {
+            name: 'Ava Harris',
+            phoneNumber: '555-555-5555',
+            username: 'aharris',
+            email: 'aharris@gmail.com',
+            password: 'password123'
+        },
+        {
+            name: 'Benjamin Clark',
+            phoneNumber: '555-555-5555',
+            username: 'bclark',
+            email: 'bclark@gmail.com',
+            password: 'password123'
+        },
+        {
+            name: 'Mia Lewis',
+            phoneNumber: '555-555-5555',
+            username: 'mlewis',
+            email: 'mlewis@gmail.com',
+            password: 'password123'
+        },
     ], {
         individualHooks: true,
         returning: true,
@@ -35,13 +105,13 @@ const seedDatabase = async () => {
         });
     };
 
-    const employees = await employee.bulkCreate([
+    await employee.bulkCreate([
         {
             name: 'Jack',
             phoneNumber: '555-5555',
         },
         {
-            name: 'Jill',
+            name: 'Jennifer',
             phoneNumber: '555-555-5555',
         },
         {
@@ -56,11 +126,15 @@ const seedDatabase = async () => {
 
 function getRandomDate() {
     const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    const randomDay = Math.floor(Math.random() * daysInMonth) + 1;
-    return new Date(currentYear, currentMonth, randomDay);
+    const currentYear = currentDate.getFullYear();
+    const randomDay = Math.floor(Math.random() * 28) + 1; // Assuming 28 days in a month
+
+    const randomHour = Math.floor(Math.random() * 24);
+    const randomMinute = Math.floor(Math.random() * 2) * 30; // 0 or 30
+
+    return new Date(currentYear, currentMonth, randomDay, randomHour, randomMinute);
 }
+
 
 module.exports = seedDatabase;
