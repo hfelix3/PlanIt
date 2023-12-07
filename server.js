@@ -6,7 +6,6 @@ const exphbs = require('express-handlebars');
 const seedDatabase = require('./seeds/seed');
 const session = require('express-session');
 const auth = require('./utils/auth');
-
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
