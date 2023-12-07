@@ -26,7 +26,9 @@ router.post('/', async (req, res) => {
       dateTime: req.body.dateTime
       });
     
-    return res.json(appointmentData);
+    
+    const data = await appointment.findByPk(appointmentData.id, { include: [{ model: User }] });
+    return res.json(data);
 });
 
 router.put('/:id', async (req, res) => {
@@ -34,6 +36,7 @@ router.put('/:id', async (req, res) => {
     res.status(401).json({ error: 'You must be logged in to update an appointment' });
     return;
   }
+  console.log(req.session);
 
   const appointmentData = await appointment.update({
     customer_id: req.session.userId,
