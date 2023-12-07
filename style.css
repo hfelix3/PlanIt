@@ -13,6 +13,10 @@
     width: 100%;
     background-color: rgb(0, 0, 0);
     box-shadow: 0 1px 4px rgb(34, 34, 34);
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
 }
 
 .nav-container {
@@ -154,7 +158,6 @@ body{
     background-size: cover;
     background-image: url(Images/photo-1503951914875-452162b0f3f1.avif);
     background-attachment: fixed;
-
     color: white;
     display: block;
     justify-content: center;
@@ -168,7 +171,7 @@ h1{
     text-shadow: 1px 5px 6px rgb(0, 0, 0);
     text-align: center;
     padding-top: 10rem;
-
+    
 }
 
 p {
