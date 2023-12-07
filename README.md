@@ -50,6 +50,10 @@ Schedule a time with your prefered barber.
 
 < Insert picture >
 
+
+## Deployed Application
+
+![Image](./public/images/localhost_3001.png)
 ## License
 
 This project is covered under the MIT license.
@@ -68,6 +72,7 @@ Your changes will be review and approve is appropriate.
 
 ## Questions or Feedback
 
+Heroku url: https://plan1t-5fa59fd2b161.herokuapp.com/
 Github Profile: <https://github.com/hfelix3/PlanIt>
 
 Email us at <> if you have any questions.
