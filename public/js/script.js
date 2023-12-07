@@ -113,8 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify({
                 dateTime: startDateTime,
-                barber_id: document.getElementById('selectBarberList').value,
-                customer_id: 1 // todo: get this from session storage when implemented.
+                barber_id: document.getElementById('selectBarberList').value
             }),
         })
             .then((response) => response.json())
@@ -158,16 +157,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const formattedTime = moment(appointmentTime, 'hh:mm A').format('HH:mm');
             const startDateTime = moment(`${selectedDate} ${formattedTime}`, 'YYYY-MM-DD HH:mm');
 
-            // Add calendar event
-            calendar.addEvent({
-                title: customerName,
-                start: startDateTime.toISOString(),
-                end: startDateTime.clone().add(1, 'hour').toISOString(),
-                allDay: false,
-                extendedProps: {
-                }
-            });
-
             // store in the database.
             fetch('/api/appointments', {
                 method: 'POST',
@@ -177,16 +166,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify({
                     dateTime: startDateTime.toISOString(),
                     barber_id: barberId,
-                    customer_id: 1, // TODO: figure out how to get this from session storage when implemented.
                     appointment_id: selectedEventId
                 }),
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log('Success in adding appointment:', data);
+                    // Add calendar event
+                    calendar.addEvent({
+                        title: customerName,
+                        start: startDateTime.toISOString(),
+                        end: startDateTime.clone().add(1, 'hour').toISOString(),
+                        allDay: false,
+                        extendedProps: {
+                        }
+                    });
                 })
                 .catch((error) => {
                     console.error('Error:', error);
+                    alert('Ensure you are logged in.')
                 });
 
             // Close the modal

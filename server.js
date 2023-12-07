@@ -7,7 +7,6 @@ const seedDatabase = require('./seeds/seed');
 const session = require('express-session');
 const auth = require('./utils/auth');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -24,8 +23,8 @@ const sess = {
     })
   };
   
-  // Add express-session and store as Express.js middleware
-  app.use(session(sess));
+// Add express-session and store as Express.js middleware
+app.use(session(sess));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
