@@ -2,7 +2,8 @@ const router = require("express").Router();
 
 router.get("/", async (req, res) => {
     try {
-        res.render("home");
+        res.render("home",
+        req.session.loggedIn ? { loggedIn: true } : { loggedIn: false });
     } catch (err) {
         res.status(500).json(err);
     }

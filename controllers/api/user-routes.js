@@ -12,10 +12,32 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Create user
 router.post('/', async (req, res) => {
-    const userData = await user.create(req.body);
-    return res.json(userData);
-});
+    try {
+      
+      const dbUserData = await User.findOne({
+        where: {
+          name: req.body.name,
+        }
+      });
+
+      if (dbUserData) {
+        res.status(400).json({ message: 'Username already exists' });
+        return;
+      };
+
+      const userData = await User.create(req.body);
+  
+      req.session.save(() => {
+        req.session.loggedIn = true;
+  
+        res.status(200).json(userData);
+      });
+    } catch (err) {
+      res.status(400).json(err);
+    }
+  });
 
 router.put('/:id', async (req, res) => {
     const userData = await user.update(
@@ -75,7 +97,8 @@ router.post('/login', async (req, res) => {
     // Once the user successfully logs in, set up the sessions variable 'loggedIn'
     req.session.save(() => {
       req.session.loggedIn = true;
-      req.session.username = req.body.username
+      req.session.name = req.body.name;
+      req.session.userId = dbUserData.id;
 
       res
         .status(200)
@@ -87,15 +110,17 @@ router.post('/login', async (req, res) => {
   }
 });
   
-  router.post('/logout', (req, res) => {
-    if (req.session.logged_in) {
-      // Remove the session variables
-      req.session.destroy(() => {
-        res.status(204).end();
-      });
-    } else {
-      res.status(404).end();
-    }
-  });
+// Create logout route
+router.post('/logout', (req, res) => {
+  // When the user logs out, the session is destroyed
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    // If there is no session, then the logout request will send back a no resource found status
+    res.status(404).end();
+  }
+});
 
   module.exports = router;
