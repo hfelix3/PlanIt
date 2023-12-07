@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         events: [],
         eventClick: function(info) {
+            console.log(info.event)
             displayAppointment(info.event);
         },
         editable: true,
@@ -79,8 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // set the customer name
         $('#customerName').val(info.title);
-        
-        console.log(info.extendedProps)
+    
         // set the barber name in the select list
 
         fetch(`/api/employees/${info.extendedProps.barber_id}`, {
@@ -147,16 +147,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function saveAppointment() {
-        const customerName = $('#customerName').val();
+        // const customerName = $('#customerEmail').val();
         const appointmentTime = selectedTime;
 
         let barberId = document.getElementById('selectBarberList').value;
 
-        if (customerName && appointmentTime) {
+        if (appointmentTime) {
             // Convert appointmentTime to 24 hour format
             const formattedTime = moment(appointmentTime, 'hh:mm A').format('HH:mm');
             const startDateTime = moment(`${selectedDate} ${formattedTime}`, 'YYYY-MM-DD HH:mm');
-
+            
             // store in the database.
             fetch('/api/appointments', {
                 method: 'POST',
@@ -172,8 +172,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then((response) => response.json())
                 .then((data) => {
                     // Add calendar event
+                    console.log(data)
                     calendar.addEvent({
-                        title: customerName,
+                        title: data.user.name,
                         start: startDateTime.toISOString(),
                         end: startDateTime.clone().add(1, 'hour').toISOString(),
                         allDay: false,
