@@ -34,7 +34,11 @@
                     <li><a href="#">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Contact</a></li>
-                    <li><a href="#">Login</a></li>
+                    {{#if loggedIn}}
+                        <li><a href="/login">Login</a></li>
+                    {{else}}
+                        <li><a href="/logout">Logout</a></li>
+                    {{/if}}
                 </div>
             </div>
         </div>
