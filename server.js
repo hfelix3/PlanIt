@@ -6,8 +6,8 @@ const exphbs = require('express-handlebars');
 const seedDatabase = require('./seeds/seed');
 const session = require('express-session');
 const auth = require('./utils/auth');
-
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
