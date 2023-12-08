@@ -157,6 +157,7 @@ body{
     background-position: top;
     background-size: cover;
     background-image: url(Images/photo-1503951914875-452162b0f3f1.avif);
+
     background-attachment: fixed;
     color: white;
     display: block;
